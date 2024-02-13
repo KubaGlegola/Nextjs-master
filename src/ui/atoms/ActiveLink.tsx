@@ -1,6 +1,5 @@
 "use client";
 
-import clsx from "clsx";
 import { type Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -22,13 +21,12 @@ export const ActiveLink = <T extends string>({
 }: ActiveLinkProps<T>) => {
 	const currentPathname = usePathname();
 	const isActive = exact ? currentPathname === href : currentPathname.startsWith(href);
-
-	return (
-		<Link
-			href={href}
-			className={clsx(className, isActive && activeClassName)}
-			aria-current={isActive}
-		>
+	return isActive ? (
+		<Link href={href} className={`${className}  ${activeClassName}`} aria-current>
+			{children}
+		</Link>
+	) : (
+		<Link href={href} className={className}>
 			{children}
 		</Link>
 	);
