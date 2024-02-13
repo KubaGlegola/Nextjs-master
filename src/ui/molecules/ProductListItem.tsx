@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
 import { ProductListItemDescription } from "@/ui/atoms/ProductListItemDescription";
 import { type ProductItemType } from "@/ui/types";
@@ -9,10 +10,10 @@ type ProductItemProps = {
 export const ProductListItem = ({ product }: ProductItemProps) => {
 	return (
 		<li>
-			<article>
+			<Link href={`/product/${product.id}`}>
 				<ProductCoverImage alt={product.coverImage.alt} src={product.coverImage.src} />
 				<ProductListItemDescription product={product} />
-			</article>
+			</Link>
 		</li>
 	);
 };
