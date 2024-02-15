@@ -8,7 +8,7 @@ export const Navbar = () => {
 					<ActiveLink href="/">Home</ActiveLink>
 				</li>
 				<li>
-					<ActiveLink href="/products/1" exact={false}>
+					<ActiveLink href="/products" exact={false}>
 						All
 					</ActiveLink>
 				</li>
