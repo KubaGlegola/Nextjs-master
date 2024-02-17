@@ -11,7 +11,9 @@ export const ProductListItem = ({ product }: ProductItemProps) => {
 	return (
 		<li>
 			<Link href={`/product/${product.id}`}>
-				<ProductCoverImage alt={product.coverImage.alt} src={product.coverImage.src} />
+				{product.coverImage && (
+					<ProductCoverImage alt={product.coverImage.alt} src={product.coverImage.src} />
+				)}
 				<ProductListItemDescription product={product} />
 			</Link>
 		</li>

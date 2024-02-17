@@ -1,9 +1,9 @@
-import { getProductsListByPage } from "@/api/products";
+import { getProductsList } from "@/api/products";
 import { Pagination } from "@/ui/molecules/Pagination";
 import { ProductList } from "@/ui/organism/ProductsList";
 
 export default async function ProductListPage() {
-	const products = await getProductsListByPage(0);
+	const products = await getProductsList();
 
 	return (
 		<section>

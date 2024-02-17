@@ -4,7 +4,7 @@ const nextConfig = {
 		typedRoutes: true,
 	},
 	images: {
-		domains: ["naszsklep-api.vercel.app"],
+		domains: ["naszsklep-api.vercel.app", "media.graphassets.com"],
 	},
 };
 
