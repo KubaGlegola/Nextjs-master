@@ -1,7 +1,7 @@
-import { type Metadata } from "next";
+// import { type Metadata } from "next";
+import { notFound } from "next/navigation";
 import { ProductDetail } from "@/ui/organism/ProductDetail";
-import { executeGraphql } from "@/api/graphqlApi";
-import { ProductByIdDocument } from "@/gql/graphql";
+import { getProductById } from "@/api/products";
 
 // export async function generateMetadata({
 // 	params,
@@ -10,8 +10,8 @@ import { ProductByIdDocument } from "@/gql/graphql";
 // }): Promise<Metadata> {
 // 	const product = await getProductById(params.productId);
 
-// 	const title = product.name;
-// 	const description = product.description;
+// const title = product.name;
+// const description = product.description;
 
 // 	return {
 // 		title: title,
@@ -20,5 +20,11 @@ import { ProductByIdDocument } from "@/gql/graphql";
 // }
 
 export default async function ProductPage({ params }: { params: { productId: string } }) {
+	const product = await getProductById(params.productId);
+
+	if (!product) {
+		throw notFound();
+	}
+
 	return <ProductDetail product={product} />;
 }

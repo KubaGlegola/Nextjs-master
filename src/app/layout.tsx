@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/ui/molecules/Navbar";
+import { Navbar } from "@/ui/organism/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +18,9 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<Navbar />
+				<header className="sticky top-0 z-20 border-b bg-white bg-opacity-60 backdrop-blur-lg">
+					<Navbar />
+				</header>
 				<div className="mx-auto max-w-lg p-4 md:max-w-4xl lg:max-w-7xl ">{children}</div>
 			</body>
 		</html>
