@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
-import { type ProductListItemFragment } from "@/gql/graphql";
+import { type ProductsListItemFragment } from "@/gql/graphql";
 import { ProductListItem } from "@/ui/molecules/ProductListItem";
 
 type ProductListPageProps = {
-	products: ProductListItemFragment[];
+	products: ProductsListItemFragment[];
 };
 
 export const ProductList = (props: ProductListPageProps) => {

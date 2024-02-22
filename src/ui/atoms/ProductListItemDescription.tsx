@@ -1,8 +1,8 @@
-import { type ProductListItemFragment } from "@/gql/graphql";
+import { type ProductsListItemFragment } from "@/gql/graphql";
 import { formatMoney } from "@/utils";
 
 type ProductListItemDescriptionProps = {
-	product: ProductListItemFragment;
+	product: ProductsListItemFragment;
 };
 
 export const ProductListItemDescription = (props: ProductListItemDescriptionProps) => {

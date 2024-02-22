@@ -272,6 +272,13 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
+export type CollectionsGetListBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type CollectionsGetListBySlugQuery = { collection?: { products: Array<{ id: string, name: string, price: number, images: Array<{ url: string }>, categories: Array<{ name: string }> }> } | null };
+
 export type GetAllCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -289,7 +296,7 @@ export type GetProductCountQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetProductCountQuery = { products: { meta: { total: number } } };
 
-export type ProductListItemFragment = { id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> };
+export type ProductItemFragment = { id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> };
 
 export type GetProductsByCategorySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -304,7 +311,9 @@ export type ProductsGetListQueryVariables = Exact<{
 }>;
 
 
-export type ProductsGetListQuery = { products: { data: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }>, meta: { total: number } } };
+export type ProductsGetListQuery = { products: { data: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }>, meta: { total: number } } };
+
+export type ProductsListItemFragment = { id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -320,8 +329,8 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
-export const ProductListItemFragmentDoc = new TypedDocumentString(`
-    fragment ProductListItem on Product {
+export const ProductItemFragmentDoc = new TypedDocumentString(`
+    fragment ProductItem on Product {
   id
   name
   description
@@ -333,7 +342,37 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(`
   }
   price
 }
-    `, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
+    `, {"fragmentName":"ProductItem"}) as unknown as TypedDocumentString<ProductItemFragment, unknown>;
+export const ProductsListItemFragmentDoc = new TypedDocumentString(`
+    fragment ProductsListItem on Product {
+  id
+  name
+  categories {
+    name
+  }
+  images {
+    url
+  }
+  price
+}
+    `, {"fragmentName":"ProductsListItem"}) as unknown as TypedDocumentString<ProductsListItemFragment, unknown>;
+export const CollectionsGetListBySlugDocument = new TypedDocumentString(`
+    query CollectionsGetListBySlug($slug: String!) {
+  collection(slug: $slug) {
+    products {
+      id
+      name
+      images {
+        url
+      }
+      categories {
+        name
+      }
+      price
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionsGetListBySlugQuery, CollectionsGetListBySlugQueryVariables>;
 export const GetAllCategoriesDocument = new TypedDocumentString(`
     query GetAllCategories {
   categories {
@@ -348,10 +387,10 @@ export const GetAllCategoriesDocument = new TypedDocumentString(`
 export const GetProductByIdDocument = new TypedDocumentString(`
     query GetProductById($id: ID!) {
   product(id: $id) {
-    ...ProductListItem
+    ...ProductItem
   }
 }
-    fragment ProductListItem on Product {
+    fragment ProductItem on Product {
   id
   name
   description
@@ -394,17 +433,16 @@ export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList($take: Int, $skip: Int) {
   products(take: $take, skip: $skip) {
     data {
-      ...ProductListItem
+      ...ProductsListItem
     }
     meta {
       total
     }
   }
 }
-    fragment ProductListItem on Product {
+    fragment ProductsListItem on Product {
   id
   name
-  description
   categories {
     name
   }

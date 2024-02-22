@@ -1,9 +1,10 @@
 import { executeGraphql } from "@/api/graphqlApi";
 import {
 	GetProductByIdDocument,
-	type ProductListItemFragment,
 	ProductsGetListDocument,
 	GetProductsByCategorySlugDocument,
+	CollectionsGetListBySlugDocument,
+	type ProductItemFragment,
 } from "@/gql/graphql";
 
 export const getProductsList = async (take: number, skip: number) => {
@@ -12,7 +13,7 @@ export const getProductsList = async (take: number, skip: number) => {
 	return graphqlResponse.products;
 };
 
-export const getProductById = async (_id: ProductListItemFragment["id"]) => {
+export const getProductById = async (_id: ProductItemFragment["id"]) => {
 	const graphqlResponse = await executeGraphql(GetProductByIdDocument, { id: _id });
 
 	return graphqlResponse.product;
@@ -24,4 +25,10 @@ export const getProductsByCategory = async (category: string) => {
 	});
 
 	return graphqlResponse.category?.products;
+};
+
+export const getCollectionsListBySlug = async (_slug: string) => {
+	const graphqlResponse = await executeGraphql(CollectionsGetListBySlugDocument, { slug: _slug });
+
+	return graphqlResponse.collection?.products;
 };

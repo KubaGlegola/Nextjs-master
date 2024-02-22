@@ -3,7 +3,7 @@ import { Pagination } from "@/ui/molecules/Pagination";
 import { ProductList } from "@/ui/organism/ProductsList";
 
 export default async function ProductListPage({ params }: { params: { pageNumber: string } }) {
-	const productsPerPage = process.env.ITEMS_PER_PAGE ? +process.env.ITEMS_PER_PAGE : 16;
+	const productsPerPage = 8;
 
 	const { meta, data } = await getProductsList(
 		productsPerPage,
@@ -15,7 +15,7 @@ export default async function ProductListPage({ params }: { params: { pageNumber
 	return (
 		<section>
 			<ProductList products={data} />
-			<Pagination totalPages={totalPages} />
+			<Pagination totalPages={totalPages} href="/products" />
 		</section>
 	);
 }

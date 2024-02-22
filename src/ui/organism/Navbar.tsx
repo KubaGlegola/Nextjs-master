@@ -1,8 +1,9 @@
-import { getAllCategories } from "@/api/categories";
+// import { getAllCategories } from "@/api/categories";
+import { type Route } from "next";
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
 
 export const Navbar = async () => {
-	const categories = await getAllCategories();
+	// const categories = await getAllCategories();
 
 	return (
 		<div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
@@ -17,7 +18,12 @@ export const Navbar = async () => {
 								All
 							</ActiveLink>
 						</li>
-						{categories.map((category) => {
+						<li>
+							<ActiveLink href={"/categories" as Route} exact={false}>
+								Categories
+							</ActiveLink>
+						</li>
+						{/* {categories.map((category) => {
 							return (
 								<li key={category.slug}>
 									<ActiveLink exact={false} href={`/categories/${category.slug}`}>
@@ -25,7 +31,7 @@ export const Navbar = async () => {
 									</ActiveLink>
 								</li>
 							);
-						})}
+						})} */}
 					</ul>
 				</nav>
 			</div>

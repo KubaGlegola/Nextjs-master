@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { type Route } from "next";
 import { getProductsByCategory } from "@/api/products";
 import { Pagination } from "@/ui/molecules/Pagination";
 import { ProductList } from "@/ui/organism/ProductsList";
@@ -19,7 +20,7 @@ export default async function ProductListPage({
 	return (
 		<section>
 			<ProductList products={products} />
-			<Pagination totalPages={1} />
+			<Pagination totalPages={1} href={`/categories/${params.category}` as Route} />
 		</section>
 	);
 }

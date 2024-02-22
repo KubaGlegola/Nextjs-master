@@ -18,6 +18,11 @@ const nextConfig = {
 				destination: "/categories/:category/1",
 				permanent: false,
 			},
+			{
+				source: "/categories",
+				destination: "/categories/t-shirts/1",
+				permanent: false,
+			},
 		];
 	},
 };
