@@ -23,6 +23,11 @@ const nextConfig = {
 				destination: "/categories/t-shirts/1",
 				permanent: false,
 			},
+			{
+				source: "/collections",
+				destination: "/collections/new-arrivals",
+				permanent: false,
+			},
 		];
 	},
 };
