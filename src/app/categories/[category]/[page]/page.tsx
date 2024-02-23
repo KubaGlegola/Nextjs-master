@@ -3,6 +3,7 @@ import { type Route } from "next";
 import { getProductsByCategory } from "@/api/products";
 import { Pagination } from "@/ui/molecules/Pagination";
 import { ProductList } from "@/ui/organism/ProductsList";
+import { PageTitle } from "@/ui/atoms/PageTitle";
 
 export default async function ProductListPage({
 	params,
@@ -17,6 +18,7 @@ export default async function ProductListPage({
 
 	return (
 		<section>
+			<PageTitle>{params.category}</PageTitle>
 			<ProductList products={products} />
 			<Pagination totalPages={1} href={`/categories/${params.category}` as Route} />
 		</section>
