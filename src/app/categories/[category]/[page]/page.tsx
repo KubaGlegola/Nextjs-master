@@ -15,8 +15,6 @@ export default async function ProductListPage({
 		return notFound();
 	}
 
-	console.log(products);
-
 	return (
 		<section>
 			<ProductList products={products} />

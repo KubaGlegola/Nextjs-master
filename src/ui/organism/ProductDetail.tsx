@@ -1,7 +1,7 @@
 import { type ProductItemFragment } from "@/gql/graphql";
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
 import { RelatedProducts } from "@/ui/molecules/RelatedProducts";
-import { formatMoney } from "@/utils";
+import { formatMoney } from "@/utils/utils";
 
 type ProductDetailProps = { product: ProductItemFragment };
 

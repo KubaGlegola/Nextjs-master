@@ -5,6 +5,7 @@ import {
 	GetProductsByCategorySlugDocument,
 	CollectionsGetListBySlugDocument,
 	type ProductItemFragment,
+	GetProductsListBySearchDocument,
 } from "@/gql/graphql";
 
 export const getProductsList = async (take: number, skip: number) => {
@@ -31,4 +32,10 @@ export const getCollectionsListBySlug = async (_slug: string) => {
 	const graphqlResponse = await executeGraphql(CollectionsGetListBySlugDocument, { slug: _slug });
 
 	return graphqlResponse.collection?.products;
+};
+
+export const getProductsBySerach = async (search: string) => {
+	const graphqlResponse = await executeGraphql(GetProductsListBySearchDocument, { search: search });
+
+	return graphqlResponse.products;
 };
