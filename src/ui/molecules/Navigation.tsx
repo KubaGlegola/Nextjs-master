@@ -1,5 +1,3 @@
-// import { getAllCategories } from "@/api/categories";
-import { type Route } from "next";
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
 
 export const Navigation = () => {
