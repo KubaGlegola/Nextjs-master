@@ -20,7 +20,7 @@ export const Search = () => {
 
 	return (
 		<input
-			type="text"
+			type="search"
 			onChange={inputChangeHandler}
 			placeholder="Search"
 			className=" block border-2 border-transparent bg-gray-50 p-2 outline-none transition-colors duration-300 hover:border-blue-500 focus:border-blue-500 active:border-blue-500 "
