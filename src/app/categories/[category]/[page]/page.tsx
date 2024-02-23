@@ -1,9 +1,15 @@
 import { notFound } from "next/navigation";
-import { type Route } from "next";
+import { type Metadata, type Route } from "next";
 import { getProductsByCategory } from "@/api/products";
 import { Pagination } from "@/ui/molecules/Pagination";
 import { ProductList } from "@/ui/organism/ProductsList";
 import { PageTitle } from "@/ui/atoms/PageTitle";
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+		title: `Categories`,
+	};
+}
 
 export default async function ProductListPage({
 	params,
@@ -18,7 +24,7 @@ export default async function ProductListPage({
 
 	return (
 		<section>
-			<PageTitle>{params.category}</PageTitle>
+			<PageTitle>Categories</PageTitle>
 			<ProductList products={products} />
 			<Pagination totalPages={1} href={`/categories/${params.category}` as Route} />
 		</section>

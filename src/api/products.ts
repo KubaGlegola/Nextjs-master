@@ -31,7 +31,7 @@ export const getProductsByCategory = async (category: string) => {
 export const getCollectionsListBySlug = async (_slug: string) => {
 	const graphqlResponse = await executeGraphql(CollectionsGetListBySlugDocument, { slug: _slug });
 
-	return graphqlResponse.collection?.products;
+	return graphqlResponse.collection;
 };
 
 export const getProductsBySerach = async (search: string) => {

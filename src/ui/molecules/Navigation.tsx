@@ -17,7 +17,7 @@ export const Navigation = () => {
 					</ActiveLink>
 				</li>
 				<li>
-					<ActiveLink href={"/categories" as Route} exact={false}>
+					<ActiveLink href={"/categories"} exact={false}>
 						Categories
 					</ActiveLink>
 				</li>
