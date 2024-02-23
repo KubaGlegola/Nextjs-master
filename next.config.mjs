@@ -4,7 +4,26 @@ const nextConfig = {
 		typedRoutes: true,
 	},
 	images: {
-		domains: ["naszsklep-api.vercel.app"],
+		domains: ["naszsklep-api.vercel.app", "static-ourstore.hyperfunctor.com"],
+	},
+	redirects: async () => {
+		return [
+			{
+				source: "/products",
+				destination: "/products/1",
+				permanent: false,
+			},
+			{
+				source: "/categories/:category",
+				destination: "/categories/:category/1",
+				permanent: false,
+			},
+			{
+				source: "/categories",
+				destination: "/categories/t-shirts/1",
+				permanent: false,
+			},
+		];
 	},
 };
 

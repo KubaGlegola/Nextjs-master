@@ -1,6 +1,7 @@
 import { type Metadata } from "next";
-import { getProductById } from "@/api/products";
+import { notFound } from "next/navigation";
 import { ProductDetail } from "@/ui/organism/ProductDetail";
+import { getProductById } from "@/api/products";
 
 export async function generateMetadata({
 	params,
@@ -8,6 +9,10 @@ export async function generateMetadata({
 	params: { productId: string };
 }): Promise<Metadata> {
 	const product = await getProductById(params.productId);
+
+	if (!product) {
+		throw notFound();
+	}
 
 	const title = product.name;
 	const description = product.description;
@@ -20,6 +25,10 @@ export async function generateMetadata({
 
 export default async function ProductPage({ params }: { params: { productId: string } }) {
 	const product = await getProductById(params.productId);
+
+	if (!product) {
+		throw notFound();
+	}
 
 	return <ProductDetail product={product} />;
 }

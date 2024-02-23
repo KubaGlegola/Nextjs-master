@@ -1,0 +1,9 @@
+query GetAllCategories {
+	categories {
+		data {
+			id
+			name
+			slug
+		}
+	}
+}
