@@ -1,4 +1,4 @@
-query GetAllCategories {
+query CategoriesGetAll {
 	categories {
 		data {
 			id

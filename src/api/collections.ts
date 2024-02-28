@@ -1,8 +1,8 @@
 import { executeGraphql } from "@/api/graphqlApi";
-import { GetAllCollectionsDocument } from "@/gql/graphql";
+import { CollectionsGetAllDocument } from "@/gql/graphql";
 
 export const getAllCollections = async () => {
-	const graphqlResponse = await executeGraphql(GetAllCollectionsDocument, {});
+	const graphqlResponse = await executeGraphql({ query: CollectionsGetAllDocument, variables: {} });
 
 	return graphqlResponse.collections.data;
 };

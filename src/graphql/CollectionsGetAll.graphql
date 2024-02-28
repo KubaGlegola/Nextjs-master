@@ -1,4 +1,4 @@
-query GetAllCollections {
+query CollectionsGetAll {
 	collections {
 		data {
 			...CollectionItem
