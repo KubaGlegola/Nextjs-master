@@ -48,7 +48,6 @@ export const addProductToCart = async (cartId: string, productId: string, quanti
 		variables: {
 			id: productId,
 		},
-		cache: "no-cache",
 	});
 	if (!product) {
 		throw new Error(`Product with id ${productId} not found`);

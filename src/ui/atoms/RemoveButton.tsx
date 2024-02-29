@@ -2,6 +2,7 @@
 
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { Trash } from "lucide-react";
 import { removeItemFromCart } from "@/utils/actions";
 
 export const RemoveButton = ({ cartId, itemId }: { cartId: string; itemId: string }) => {
@@ -18,7 +19,7 @@ export const RemoveButton = ({ cartId, itemId }: { cartId: string; itemId: strin
 				});
 			}}
 		>
-			Remove
+			<Trash />
 		</button>
 	);
 };
