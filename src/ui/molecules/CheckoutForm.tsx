@@ -1,3 +1,5 @@
+"use client";
+
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useState, useEffect, type FormEvent } from "react";
 
@@ -9,6 +11,8 @@ export function CheckoutForm() {
 
 	const [message, setMessage] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
+
+	const currUrl = window.location.origin;
 
 	useEffect(() => {
 		if (!stripe) {
@@ -57,7 +61,7 @@ export function CheckoutForm() {
 			elements,
 			confirmParams: {
 				// Make sure to change this to your payment completion page
-				return_url: `/payment/success`,
+				return_url: `${currUrl}/payment/success`,
 			},
 		});
 
