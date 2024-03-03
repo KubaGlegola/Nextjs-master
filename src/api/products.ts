@@ -6,6 +6,7 @@ import {
 	type ProductItemFragment,
 	ProductGetByIdDocument,
 	ProductsGetListBySearchDocument,
+	ReviewsGetDocument,
 } from "@/gql/graphql";
 
 export const getProductsList = async (take: number, skip: number) => {
@@ -53,4 +54,14 @@ export const getProductsBySerach = async (search: string) => {
 	});
 
 	return graphqlResponse.products;
+};
+
+export const getProductReviews = async (productId: string) => {
+	const graphqlResponse = await executeGraphql({
+		query: ReviewsGetDocument,
+		variables: { id: productId },
+		next: { tags: ["reviews"] },
+	});
+
+	return graphqlResponse.product;
 };

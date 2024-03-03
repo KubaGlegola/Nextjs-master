@@ -42,7 +42,7 @@ export const createCart = () => {
 	return executeGraphql({ query: CartCreateDocument, variables: {} });
 };
 
-export const addProductToCart = async (cartId: string, productId: string, quantity: string) => {
+export const addProductToCart = async (cartId: string, productId: string, quantity: number) => {
 	const { product } = await executeGraphql({
 		query: ProductGetByIdDocument,
 		variables: {
@@ -58,7 +58,7 @@ export const addProductToCart = async (cartId: string, productId: string, quanti
 		variables: {
 			cartId,
 			productId,
-			quantity: +quantity,
+			quantity: quantity,
 		},
 	});
 };

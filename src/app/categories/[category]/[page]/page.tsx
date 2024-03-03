@@ -22,11 +22,14 @@ export default async function ProductListPage({
 		return notFound();
 	}
 
+	const productsOnPage = products.slice(4 * (Number(params.page) - 1), 4 * Number(params.page));
+	const totalPages = Math.ceil(products.length / 4);
+
 	return (
 		<section>
 			<PageTitle>Categories</PageTitle>
-			<ProductList products={products} />
-			<Pagination totalPages={1} href={`/categories/${params.category}` as Route} />
+			<ProductList products={productsOnPage} />
+			<Pagination totalPages={totalPages} href={`/categories/${params.category}` as Route} />
 		</section>
 	);
 }

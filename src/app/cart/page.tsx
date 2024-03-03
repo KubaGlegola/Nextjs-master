@@ -4,7 +4,7 @@ import { getCartFromCookies } from "@/api/cart";
 import { formatMoney } from "@/utils/utils";
 import { CartItemQuantity } from "@/ui/atoms/CartItemQuantity";
 import { RemoveButton } from "@/ui/atoms/RemoveButton";
-import { CartSummary } from "@/ui/atoms/CartSummary";
+import { CartSummary } from "@/ui/molecules/CartSummary";
 
 export default async function CartPage() {
 	const cart = await getCartFromCookies();

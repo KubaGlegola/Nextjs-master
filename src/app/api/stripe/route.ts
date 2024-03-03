@@ -2,6 +2,7 @@
 
 import { type NextRequest } from "next/server";
 import Stripe from "stripe";
+import { cartComplete } from "@/utils/actions";
 
 export async function POST(req: NextRequest): Promise<Response> {
 	const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -29,7 +30,19 @@ export async function POST(req: NextRequest): Promise<Response> {
 		webhookSecret,
 	) as Stripe.DiscriminatedEvent;
 
-	console.log(event.type);
+	switch (event.type) {
+		case "payment_intent.succeeded": {
+			const orderId = event.data.object.metadata.orderId;
+			if (!orderId) {
+				return new Response("No orderId", { status: 400 });
+			}
+			const order = await cartComplete(orderId);
+			console.log(order);
+			break;
+		}
+		case "payment_intent.payment_failed": {
+		}
+	}
 
 	return new Response(null, { status: 204 });
 }

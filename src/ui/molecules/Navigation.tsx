@@ -1,7 +1,8 @@
+import { getAllCategories } from "@/api/categories";
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
 
-export const Navigation = () => {
-	// const categories = await getAllCategories();
+export const Navigation = async () => {
+	const categories = await getAllCategories();
 
 	return (
 		<nav className="scrolling-touch scroll-shadows -mx-2 flex overflow-x-scroll lg:mx-0 lg:h-16 lg:overflow-x-auto">
@@ -19,15 +20,15 @@ export const Navigation = () => {
 						Categories
 					</ActiveLink>
 				</li>
-				{/* {categories.map((category) => {
-							return (
-								<li key={category.slug}>
-									<ActiveLink exact={false} href={`/categories/${category.slug}`}>
-										{category.name}
-									</ActiveLink>
-								</li>
-							);
-						})} */}
+				{categories.map((category) => {
+					return (
+						<li key={category.slug}>
+							<ActiveLink exact={false} href={`/categories/${category.slug}`}>
+								{category.name}
+							</ActiveLink>
+						</li>
+					);
+				})}
 			</ul>
 		</nav>
 	);

@@ -1,5 +1,11 @@
 mutation CartCreate {
 	cartFindOrCreate(input: {}) {
 		id
+		items {
+			quantity
+			product {
+				...CartItem
+			}
+		}
 	}
 }

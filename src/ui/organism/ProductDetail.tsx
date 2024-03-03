@@ -1,28 +1,34 @@
 import { revalidateTag } from "next/cache";
-import { type ProductItemFragment } from "@/gql/graphql";
+import { notFound } from "next/navigation";
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
-import { RelatedProducts } from "@/ui/molecules/RelatedProducts";
 import { formatMoney } from "@/utils/utils";
 import { ProductQuantity } from "@/ui/atoms/ProductQuantity";
 import { AddToCartButton } from "@/ui/atoms/AddToCartButton";
 import { addProductToCart, getOrCreateCart } from "@/api/cart";
+import { changeCartItemQuantity } from "@/utils/actions";
+import { getProductById } from "@/api/products";
 
-type ProductDetailProps = { product: ProductItemFragment };
+export const ProductDetail = async ({ productId }: { productId: string }) => {
+	const product = await getProductById(productId);
 
-export const ProductDetail = (props: ProductDetailProps) => {
-	const { product } = props;
+	if (!product) {
+		return notFound();
+	}
 
 	async function addProductToCartAction(formData: FormData) {
 		"use server";
 
-		let quantity = formData.get("quantity")?.toString();
-		if (!quantity) {
-			quantity = "1";
+		if (product) {
+			const quantity = formData.get("quantity") || 1;
+			const cart = await getOrCreateCart();
+			const existingProduct = cart.items.find((item) => item.product.id === product.id);
+
+			if (existingProduct) {
+				await changeCartItemQuantity(cart.id, product.id, +quantity + existingProduct.quantity);
+			} else {
+				await addProductToCart(cart.id, product.id, +quantity);
+			}
 		}
-
-		const cart = await getOrCreateCart();
-
-		await addProductToCart(cart.id, product.id, quantity);
 
 		revalidateTag("cart");
 	}
@@ -49,7 +55,6 @@ export const ProductDetail = (props: ProductDetailProps) => {
 					</form>
 				</div>
 			</div>
-			<RelatedProducts />
 		</>
 	);
 };

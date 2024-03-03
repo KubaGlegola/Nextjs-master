@@ -1,4 +1,4 @@
-import { CheckOutButton } from "@/ui/atoms/CheckOutButton";
+import Link from "next/link";
 import { formatMoney } from "@/utils/utils";
 
 export const CartSummary = ({ orderValue }: { orderValue: number }) => {
@@ -10,7 +10,12 @@ export const CartSummary = ({ orderValue }: { orderValue: number }) => {
 				<span>Order value:</span>
 				<span className="font-semibold">{formatMoney(orderValue)}</span>
 			</div>
-			<CheckOutButton />
+			<Link
+				href="/payment"
+				className="mt-4 block w-full rounded-md border bg-slate-700 px-8 py-3 text-center text-white transition-colors duration-300 hover:bg-slate-800 disabled:bg-slate-300 disabled:text-black"
+			>
+				Check Out
+			</Link>
 		</div>
 	);
 };

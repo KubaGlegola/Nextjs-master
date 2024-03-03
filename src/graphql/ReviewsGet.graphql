@@ -1,0 +1,7 @@
+query ReviewsGet($id: ID!) {
+	product(id: $id) {
+		reviews {
+			...Review
+		}
+	}
+}
