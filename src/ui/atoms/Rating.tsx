@@ -6,7 +6,7 @@ export const Rating = ({ rating }: { rating: number }) => {
 				{Array.from({ length: 5 }, (_, i) => (
 					<svg
 						key={i}
-						className={`h-4 w-4 fill-current ${i < rating ? "text-yellow-500" : "text-gray-300"}`}
+						className={`h-4 w-4 fill-current ${i < Math.round(rating) ? "text-yellow-500" : "text-gray-300"}`}
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 24 24"
 					>

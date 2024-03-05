@@ -18,7 +18,9 @@ export default async function PaymentPage() {
 		typescript: true,
 	});
 
-	const totalAmount = cart.items.reduce((acc, item) => {
+	const items = cart.items.edges.map((edge) => edge.node);
+
+	const totalAmount = items.reduce((acc, item) => {
 		return acc + item.product.price * item.quantity;
 	}, 0);
 

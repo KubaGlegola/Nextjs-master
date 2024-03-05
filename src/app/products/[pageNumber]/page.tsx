@@ -5,16 +5,17 @@ import { ProductList } from "@/ui/organism/ProductsList";
 export default async function ProductListPage({ params }: { params: { pageNumber: string } }) {
 	const productsPerPage = 8;
 
-	const { meta, data } = await getProductsList(
+	const response = await getProductsList(
 		productsPerPage,
 		(+params.pageNumber - 1) * productsPerPage,
 	);
 
-	const totalPages = Math.ceil(meta.total / productsPerPage);
+	const products = response.edges.map((edge) => edge.node);
+	const totalPages = Math.ceil(response.totalCount / productsPerPage);
 
 	return (
 		<section>
-			<ProductList products={data} />
+			<ProductList products={products} />
 			<Pagination totalPages={totalPages} href="/products" />
 		</section>
 	);

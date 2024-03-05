@@ -1,0 +1,13 @@
+query ProductsGetByCategorySlug($first: Int, $skip: Int, $slug: String) {
+	category(slug: $slug) {
+		name
+		products(first: $first, skip: $skip) {
+			totalCount
+			edges {
+				node {
+					...ProductsListItem
+				}
+			}
+		}
+	}
+}

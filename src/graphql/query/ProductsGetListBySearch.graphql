@@ -1,0 +1,16 @@
+query ProductsGetListBySearch(
+	$first: Int
+	$skip: Int
+	$search: String
+	$order: SortDirection
+	$orderBy: ProductSortBy
+) {
+	products(first: $first, skip: $skip, search: $search, order: $order, orderBy: $orderBy) {
+		totalCount
+		edges {
+			node {
+				...ProductsListItem
+			}
+		}
+	}
+}

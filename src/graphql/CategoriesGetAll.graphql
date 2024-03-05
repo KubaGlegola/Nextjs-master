@@ -1,9 +1,0 @@
-query CategoriesGetAll {
-	categories {
-		data {
-			id
-			name
-			slug
-		}
-	}
-}

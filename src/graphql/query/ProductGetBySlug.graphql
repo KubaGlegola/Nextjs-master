@@ -1,0 +1,5 @@
+query ProductGetById($slug: String!) {
+	product(slug: $slug) {
+		...Product
+	}
+}

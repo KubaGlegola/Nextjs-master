@@ -1,67 +1,58 @@
 import { executeGraphql } from "@/api/graphqlApi";
 import {
-	ProductsGetListDocument,
-	GetProductsByCategorySlugDocument,
-	CollectionsGetListBySlugDocument,
-	type ProductItemFragment,
 	ProductGetByIdDocument,
+	ProductsGetListDocument,
+	type SortDirection,
+	type ProductSortBy,
+	ProductsGetByCategorySlugDocument,
 	ProductsGetListBySearchDocument,
-	ReviewsGetDocument,
 } from "@/gql/graphql";
 
-export const getProductsList = async (take: number, skip: number) => {
+export const getProductsList = async (
+	first: number,
+	skip: number,
+	order?: SortDirection,
+	orderBy?: ProductSortBy,
+) => {
 	const graphqlResponse = await executeGraphql({
 		query: ProductsGetListDocument,
-		variables: { take: take, skip: skip },
+		variables: { first: first, skip: skip, order: order, orderBy: orderBy },
 	});
 
 	return graphqlResponse.products;
 };
 
-export const getProductById = async (_id: ProductItemFragment["id"]) => {
+export const getProductById = async (slug: string) => {
 	const graphqlResponse = await executeGraphql({
 		query: ProductGetByIdDocument,
-		variables: { id: _id },
+		variables: { slug: slug },
 	});
 
 	return graphqlResponse.product;
 };
 
-export const getProductsByCategory = async (category: string) => {
+export const getProductsByCategory = async (first: number, skip: number, category: string) => {
 	const graphqlResponse = await executeGraphql({
-		query: GetProductsByCategorySlugDocument,
+		query: ProductsGetByCategorySlugDocument,
 		variables: {
+			first: first,
+			skip: skip,
 			slug: category,
 		},
 	});
 
-	return graphqlResponse.category?.products;
+	return graphqlResponse;
 };
 
-export const getCollectionsListBySlug = async (_slug: string) => {
-	const graphqlResponse = await executeGraphql({
-		query: CollectionsGetListBySlugDocument,
-		variables: { slug: _slug },
-	});
-
-	return graphqlResponse.collection;
-};
-
-export const getProductsBySerach = async (search: string) => {
+export const getProductsBySerach = async (
+	search: string,
+	order?: SortDirection,
+	orderBy?: ProductSortBy,
+) => {
 	const graphqlResponse = await executeGraphql({
 		query: ProductsGetListBySearchDocument,
-		variables: { search: search },
+		variables: { search: search, order: order, orderBy: orderBy },
 	});
 
-	return graphqlResponse.products;
-};
-
-export const getProductReviews = async (productId: string) => {
-	const graphqlResponse = await executeGraphql({
-		query: ReviewsGetDocument,
-		variables: { id: productId },
-		next: { tags: ["reviews"] },
-	});
-
-	return graphqlResponse.product;
+	return graphqlResponse;
 };

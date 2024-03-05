@@ -4,9 +4,9 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { executeGraphql } from "@/api/graphqlApi";
 import {
+	CartChangeItemQuantityDocument,
 	CartCompleteDocument,
-	CartRemoveProductDocument,
-	CartSetItemQuantityDocument,
+	CartRemoveItemDocument,
 	ReviewCreateDocument,
 } from "@/gql/graphql";
 import { type ReviewType } from "@/utils/types";
@@ -14,7 +14,7 @@ import { type ReviewType } from "@/utils/types";
 export const changeCartItemQuantity = (cartId: string, itemId: string, quantity: number) => {
 	revalidateTag("cart");
 	return executeGraphql({
-		query: CartSetItemQuantityDocument,
+		query: CartChangeItemQuantityDocument,
 		variables: {
 			cartId: cartId,
 			productId: itemId,
@@ -28,7 +28,7 @@ export const changeCartItemQuantity = (cartId: string, itemId: string, quantity:
 
 export const removeItemFromCart = (cartId: string, itemId: string) => {
 	return executeGraphql({
-		query: CartRemoveProductDocument,
+		query: CartRemoveItemDocument,
 		variables: {
 			cartId: cartId,
 			productId: itemId,

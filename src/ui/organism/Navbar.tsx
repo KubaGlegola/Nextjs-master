@@ -8,7 +8,9 @@ import { getCartFromCookies } from "@/api/cart";
 export const Navbar = async () => {
 	const cart = await getCartFromCookies();
 
-	const quantity = cart?.items.reduce((acc, item) => acc + item.quantity, 0) ?? 0;
+	const items = cart?.items.edges.map((edge) => edge.node) ?? [];
+
+	const quantity = items.reduce((acc, item) => acc + item.quantity, 0) ?? 0;
 
 	return (
 		<div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">

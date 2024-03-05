@@ -1,15 +1,17 @@
 import { notFound } from "next/navigation";
-import { getProductsList } from "@/api/products";
 import { ProductList } from "@/ui/organism/ProductsList";
 import { PageTitle } from "@/ui/atoms/PageTitle";
+import { getProductsList } from "@/api/products";
 import { getAllCollections } from "@/api/collections";
 import { CollectionItem } from "@/ui/atoms/CollectionItem";
 
 export default async function HomePage() {
-	const { data } = await getProductsList(4, 0);
-	const collections = await getAllCollections();
+	const response = await getProductsList(4, 0);
+	const products = response.edges.map((edge) => edge.node);
+	const collectionsResponse = await getAllCollections();
+	const collections = collectionsResponse.edges.map((edge) => edge.node);
 
-	if (!data) {
+	if (!products) {
 		return notFound();
 	}
 
@@ -26,7 +28,7 @@ export default async function HomePage() {
 				</ul>
 			</section>
 			<section>
-				<ProductList products={data} />
+				<ProductList products={products} />
 			</section>
 		</>
 	);

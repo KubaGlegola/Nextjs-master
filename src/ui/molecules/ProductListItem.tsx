@@ -11,8 +11,10 @@ export const ProductListItem = (props: ProductListItemProps) => {
 	const { product } = props;
 
 	return (
-		<Link href={`/product/${product.id}`}>
-			{product.images[0] && <ProductCoverImage alt={product.name} src={product.images[0].url} />}
+		<Link href={`/product/${product.slug}`}>
+			{product.images.edges[0] && (
+				<ProductCoverImage alt={product.name} src={product.images.edges[0].node.url} />
+			)}
 			<ProductListItemDescription product={product} />
 		</Link>
 	);

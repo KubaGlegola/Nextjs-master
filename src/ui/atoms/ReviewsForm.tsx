@@ -31,8 +31,9 @@ export const ReviewsForm = ({
 					name="rating"
 					id="rating"
 					className="block  border-2 border-gray-600 bg-gray-50 p-2 outline-none transition-colors duration-300 hover:border-blue-500 focus:border-blue-500 active:border-blue-500"
+					defaultValue="Rating"
 				>
-					<option value="" disabled selected>
+					<option value="Rating" disabled>
 						Rating
 					</option>
 					<option value="1">1</option>

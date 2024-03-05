@@ -1,8 +1,0 @@
-fragment CartItem on Product {
-	id
-	name
-	images {
-		url
-	}
-	price
-}

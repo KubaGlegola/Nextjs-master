@@ -1,7 +1,9 @@
 query CollectionsGetAll {
 	collections {
-		data {
-			...CollectionItem
+		edges {
+			node {
+				...Collection
+			}
 		}
 	}
 }

@@ -10,8 +10,8 @@ export const size = {
 
 export const contentType = "image/png";
 
-export default async function OpenGraphImage({ params }: { params: { productId: string } }) {
-	const product = await getProductById(params.productId);
+export default async function OpenGraphImage({ params }: { params: { slug: string } }) {
+	const product = await getProductById(params.slug);
 
 	if (!product) {
 		return;
@@ -30,8 +30,8 @@ export default async function OpenGraphImage({ params }: { params: { productId: 
 					textAlign: "center",
 				}}
 			>
-				{product.images[0] && (
-					<img src={product.images[0].url} width={300} height={300} alt={product.name} />
+				{product.images.edges[0] && (
+					<img src={product.images.edges[0].node.url} width={300} height={300} alt={product.name} />
 				)}
 				<div
 					style={{
@@ -51,7 +51,7 @@ export default async function OpenGraphImage({ params }: { params: { productId: 
 						{product?.name}
 					</h1>
 					<p>{product.description}</p>
-					{<p>Category: {product.categories[0]?.name}</p>}
+					{product.categories.edges[0] && <p>Category: {product.categories.edges[0].node.name}</p>}
 				</div>
 			</div>
 		),

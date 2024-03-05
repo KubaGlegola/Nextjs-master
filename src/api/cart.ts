@@ -1,10 +1,6 @@
 import { cookies } from "next/headers";
-import {
-	CartAddItemDocument,
-	CartCreateDocument,
-	CartGetByIdDocument,
-	ProductGetByIdDocument,
-} from "@/gql/graphql";
+
+import { CartAddItemDocument, CartFindOrCreateDocument, CartGetByIdDocument } from "@/gql/graphql";
 import { executeGraphql } from "@/api/graphqlApi";
 
 export const getOrCreateCart = async () => {
@@ -19,8 +15,8 @@ export const getOrCreateCart = async () => {
 		throw new Error("Failed to create cart");
 	}
 
-	cookies().set("cartId", cart.cartFindOrCreate.id);
-	return cart.cartFindOrCreate;
+	cookies().set("cartId", cart.cartFindOrCreate.cart.id);
+	return cart.cartFindOrCreate.cart;
 };
 
 export const getCartFromCookies = async () => {
@@ -39,20 +35,10 @@ export const getCartFromCookies = async () => {
 };
 
 export const createCart = () => {
-	return executeGraphql({ query: CartCreateDocument, variables: {} });
+	return executeGraphql({ query: CartFindOrCreateDocument, variables: {} });
 };
 
 export const addProductToCart = async (cartId: string, productId: string, quantity: number) => {
-	const { product } = await executeGraphql({
-		query: ProductGetByIdDocument,
-		variables: {
-			id: productId,
-		},
-	});
-	if (!product) {
-		throw new Error(`Product with id ${productId} not found`);
-	}
-
 	await executeGraphql({
 		query: CartAddItemDocument,
 		variables: {

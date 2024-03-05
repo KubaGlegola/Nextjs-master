@@ -12,7 +12,9 @@ export default async function CartPage() {
 		redirect("/");
 	}
 
-	const orderValue = cart.items.reduce((acc, item) => {
+	const items = cart.items.edges.map((edge) => edge.node);
+
+	const orderValue = items.reduce((acc, item) => {
 		return acc + item.product.price * item.quantity;
 	}, 0);
 
@@ -29,13 +31,13 @@ export default async function CartPage() {
 					</tr>
 				</thead>
 				<tbody>
-					{cart.items.map((item) => {
+					{items.map((item) => {
 						return (
 							<tr key={item.product.id}>
 								<td className="flex w-max items-center gap-2 px-4">
-									{item.product.images[0] && (
+									{item.product.images.edges[0] && (
 										<NextImage
-											src={item.product.images[0].url}
+											src={item.product.images.edges[0].node.url}
 											alt={item.product.name}
 											width={100}
 											height={100}

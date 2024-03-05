@@ -1,0 +1,11 @@
+query CategoryGetAll {
+	categories {
+		edges {
+			node {
+				id
+				name
+				slug
+			}
+		}
+	}
+}

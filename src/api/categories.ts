@@ -1,8 +1,8 @@
 import { executeGraphql } from "@/api/graphqlApi";
-import { CategoriesGetAllDocument } from "@/gql/graphql";
+import { CategoryGetAllDocument } from "@/gql/graphql";
 
 export const getAllCategories = async () => {
-	const graphqlResponse = await executeGraphql({ query: CategoriesGetAllDocument, variables: {} });
+	const graphqlResponse = await executeGraphql({ query: CategoryGetAllDocument, variables: {} });
 
-	return graphqlResponse.categories.data;
+	return graphqlResponse.categories;
 };

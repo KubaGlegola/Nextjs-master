@@ -1,0 +1,14 @@
+query ProductsGetByCollectionSlug($slug: String) {
+	collection(slug: $slug) {
+		id
+		name
+		products {
+			totalCount
+			edges {
+				node {
+					...ProductsListItem
+				}
+			}
+		}
+	}
+}

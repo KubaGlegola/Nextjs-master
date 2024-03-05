@@ -5,11 +5,10 @@ import { formatMoney } from "@/utils/utils";
 import { ProductQuantity } from "@/ui/atoms/ProductQuantity";
 import { AddToCartButton } from "@/ui/atoms/AddToCartButton";
 import { addProductToCart, getOrCreateCart } from "@/api/cart";
-import { changeCartItemQuantity } from "@/utils/actions";
 import { getProductById } from "@/api/products";
 
-export const ProductDetail = async ({ productId }: { productId: string }) => {
-	const product = await getProductById(productId);
+export const ProductDetail = async ({ productSlug }: { productSlug: string }) => {
+	const product = await getProductById(productSlug);
 
 	if (!product) {
 		return notFound();
@@ -21,13 +20,11 @@ export const ProductDetail = async ({ productId }: { productId: string }) => {
 		if (product) {
 			const quantity = formData.get("quantity") || 1;
 			const cart = await getOrCreateCart();
-			const existingProduct = cart.items.find((item) => item.product.id === product.id);
-
-			if (existingProduct) {
-				await changeCartItemQuantity(cart.id, product.id, +quantity + existingProduct.quantity);
-			} else {
-				await addProductToCart(cart.id, product.id, +quantity);
+			if (!cart) {
+				throw new Error("Cart not found");
 			}
+
+			await addProductToCart(cart.id, product.id, +quantity);
 		}
 
 		revalidateTag("cart");
@@ -36,10 +33,10 @@ export const ProductDetail = async ({ productId }: { productId: string }) => {
 	return (
 		<>
 			<div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 ">
-				{product.images[0] && (
+				{product.images.edges[0]?.node && (
 					<ProductCoverImage
 						alt={product.name}
-						src={product.images[0].url}
+						src={product.images.edges[0]?.node.url}
 						sizes="(min-width: 1024px) 450px, 450px"
 					/>
 				)}

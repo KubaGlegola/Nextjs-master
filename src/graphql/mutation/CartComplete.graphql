@@ -1,0 +1,7 @@
+mutation CartComplete($cartId: ID!) {
+	cartComplete(input: { id: $cartId }) {
+		cart {
+			id
+		}
+	}
+}
