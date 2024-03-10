@@ -15,10 +15,12 @@ fragment Product on Product {
 		edges {
 			node {
 				name
+				slug
 			}
 		}
 	}
 	reviews {
+		totalCount
 		edges {
 			node {
 				...Review

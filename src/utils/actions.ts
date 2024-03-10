@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidateTag } from "next/cache";
-import { cookies } from "next/headers";
 import { executeGraphql } from "@/api/graphqlApi";
 import {
 	CartChangeItemQuantityDocument,
@@ -37,11 +36,11 @@ export const removeItemFromCart = (cartId: string, itemId: string) => {
 };
 
 export const cartComplete = async (cartId: string) => {
-	cookies().set("cartId", "");
 	return executeGraphql({
 		query: CartCompleteDocument,
 		variables: {
 			cartId: cartId,
+			userEmail: "example@example.com",
 		},
 	});
 };

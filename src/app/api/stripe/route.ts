@@ -20,15 +20,12 @@ export async function POST(req: NextRequest): Promise<Response> {
 	});
 
 	const signature = req.headers.get("stripe-signature");
+
 	if (!signature) {
 		return new Response("No signature", { status: 400 });
 	}
 
-	const event = stripe.webhooks.constructEvent(
-		await req.text(),
-		signature,
-		webhookSecret,
-	) as Stripe.DiscriminatedEvent;
+	const event = stripe.webhooks.constructEvent(await req.text(), signature, webhookSecret) as Stripe.DiscriminatedEvent;
 
 	switch (event.type) {
 		case "payment_intent.succeeded": {
@@ -36,8 +33,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 			if (!orderId) {
 				return new Response("No orderId", { status: 400 });
 			}
-			const order = await cartComplete(orderId);
-			console.log(order);
+			await cartComplete(orderId);
 			break;
 		}
 		case "payment_intent.payment_failed": {

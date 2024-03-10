@@ -1,7 +1,11 @@
 export const Rating = ({ rating }: { rating: number }) => {
+	const fixedRating = Number(rating.toFixed(2));
+
 	return (
 		<div className="flex items-center gap-1">
-			<span className="text-sm">{rating}/5</span>
+			<span className="text-sm" data-testid="product-rating">
+				{fixedRating}/5
+			</span>
 			<div className="flex">
 				{Array.from({ length: 5 }, (_, i) => (
 					<svg

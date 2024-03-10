@@ -14,13 +14,13 @@ export const getOrCreateCart = async () => {
 	if (!cart.cartFindOrCreate) {
 		throw new Error("Failed to create cart");
 	}
-
-	cookies().set("cartId", cart.cartFindOrCreate.cart.id);
+	cookies().set("cartId", cart.cartFindOrCreate.cart.id, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 2) });
 	return cart.cartFindOrCreate.cart;
 };
 
 export const getCartFromCookies = async () => {
 	const cartId = cookies().get("cartId")?.value;
+
 	if (cartId) {
 		const cart = await executeGraphql({
 			query: CartGetByIdDocument,

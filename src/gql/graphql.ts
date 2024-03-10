@@ -58,6 +58,7 @@ export type CartChangeItemQuantityPayload = {
 
 export type CartCompleteInput = {
   id: Scalars['ID']['input'];
+  userEmail: Scalars['String']['input'];
 };
 
 export type CartCompletePayload = {
@@ -536,7 +537,7 @@ export type CartFragment = { id: string, items: { edges: Array<{ node: { quantit
 
 export type CollectionFragment = { id: string, name: string, description: string, slug: string };
 
-export type ProductFragment = { id: string, name: string, price: number, rating?: number | null, description: string, images: { edges: Array<{ node: { url: string } }> }, categories: { edges: Array<{ node: { name: string } }> }, reviews: { edges: Array<{ node: { id: string, author: string, title: string, description: string, rating: number, email: string } }> } };
+export type ProductFragment = { id: string, name: string, price: number, rating?: number | null, description: string, images: { edges: Array<{ node: { url: string } }> }, categories: { edges: Array<{ node: { name: string, slug: string } }> }, reviews: { totalCount: number, edges: Array<{ node: { id: string, author: string, title: string, description: string, rating: number, email: string } }> } };
 
 export type ProductsListItemFragment = { id: string, slug: string, name: string, rating?: number | null, price: number, categories: { edges: Array<{ node: { name: string } }> }, images: { edges: Array<{ node: { url: string } }> } };
 
@@ -562,10 +563,11 @@ export type CartChangeItemQuantityMutation = { cartChangeItemQuantity: { cart: {
 
 export type CartCompleteMutationVariables = Exact<{
   cartId: Scalars['ID']['input'];
+  userEmail: Scalars['String']['input'];
 }>;
 
 
-export type CartCompleteMutation = { cartComplete: { cart: { id: string } } };
+export type CartCompleteMutation = { cartComplete: { cart: { id: string, status: OrderStatus } } };
 
 export type CartFindOrCreateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -616,7 +618,7 @@ export type ProductGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type ProductGetByIdQuery = { product?: { id: string, name: string, price: number, rating?: number | null, description: string, images: { edges: Array<{ node: { url: string } }> }, categories: { edges: Array<{ node: { name: string } }> }, reviews: { edges: Array<{ node: { id: string, author: string, title: string, description: string, rating: number, email: string } }> } } | null };
+export type ProductGetByIdQuery = { product?: { id: string, name: string, price: number, rating?: number | null, description: string, images: { edges: Array<{ node: { url: string } }> }, categories: { edges: Array<{ node: { name: string, slug: string } }> }, reviews: { totalCount: number, edges: Array<{ node: { id: string, author: string, title: string, description: string, rating: number, email: string } }> } } | null };
 
 export type ProductsGetByCategorySlugQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -730,10 +732,12 @@ export const ProductFragmentDoc = new TypedDocumentString(`
     edges {
       node {
         name
+        slug
       }
     }
   }
   reviews {
+    totalCount
     edges {
       node {
         ...Review
@@ -793,10 +797,11 @@ export const CartChangeItemQuantityDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<CartChangeItemQuantityMutation, CartChangeItemQuantityMutationVariables>;
 export const CartCompleteDocument = new TypedDocumentString(`
-    mutation CartComplete($cartId: ID!) {
-  cartComplete(input: {id: $cartId}) {
+    mutation CartComplete($cartId: ID!, $userEmail: String!) {
+  cartComplete(input: {id: $cartId, userEmail: $userEmail}) {
     cart {
       id
+      status
     }
   }
 }
@@ -929,10 +934,12 @@ export const ProductGetByIdDocument = new TypedDocumentString(`
     edges {
       node {
         name
+        slug
       }
     }
   }
   reviews {
+    totalCount
     edges {
       node {
         ...Review

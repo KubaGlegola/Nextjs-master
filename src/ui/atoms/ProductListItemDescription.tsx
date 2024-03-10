@@ -9,7 +9,6 @@ type ProductListItemDescriptionProps = {
 export const ProductListItemDescription = (props: ProductListItemDescriptionProps) => {
 	const { name, categories, price, rating } = props.product;
 
-	const ratingValue = Number(rating?.toFixed(2));
 	return (
 		<div className="mt-2 flex justify-between">
 			<div>
@@ -22,8 +21,10 @@ export const ProductListItemDescription = (props: ProductListItemDescriptionProp
 			</div>
 			<div className="text-sm font-medium text-gray-900">
 				<span className="sr-only ">Price:</span>
-				<span className="block text-right">{formatMoney(price)} </span>
-				<Rating rating={ratingValue} />
+				<span className="block text-right" data-testid="product-price">
+					{formatMoney(price)}
+				</span>
+				{rating && <Rating rating={rating} />}
 			</div>
 		</div>
 	);

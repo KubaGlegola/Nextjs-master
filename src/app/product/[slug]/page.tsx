@@ -5,11 +5,7 @@ import { RelatedProducts } from "@/ui/molecules/RelatedProducts";
 import { getProductById } from "@/api/products";
 import { ReviewsList } from "@/ui/molecules/ReviewsList";
 
-export async function generateMetadata({
-	params,
-}: {
-	params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
 	const product = await getProductById(params.slug);
 
 	if (!product) {
@@ -33,15 +29,18 @@ export default async function ProductPage({ params }: { params: { slug: string }
 	}
 	const reviews = product.reviews.edges.map((edge) => edge.node);
 
-	if (!product) {
-		throw notFound();
-	}
+	const productRating = product.rating ?? 0;
 
 	return (
 		<>
 			<ProductDetail productSlug={params.slug} />
-			<RelatedProducts />
-			<ReviewsList productId={product.id} reviews={reviews} />
+			{product.categories.edges[0] && <RelatedProducts productCategory={product.categories.edges[0]?.node.slug} />}
+			<ReviewsList
+				productId={product.id}
+				reviews={reviews}
+				totalReviewsCount={product.reviews.totalCount}
+				productRating={productRating}
+			/>
 		</>
 	);
 }

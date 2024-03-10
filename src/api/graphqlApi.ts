@@ -1,8 +1,6 @@
 import { type TypedDocumentString } from "@/gql/graphql";
 
-type GraphQLResponse<T> =
-	| { data?: undefined; errors: { message: string }[] }
-	| { data: T; errors?: undefined };
+type GraphQLResponse<T> = { data?: undefined; errors: { message: string }[] } | { data: T; errors?: undefined };
 
 export const executeGraphql = async <TResult, TVariables>({
 	query,
@@ -35,6 +33,7 @@ export const executeGraphql = async <TResult, TVariables>({
 	const graphqlResponse = (await res.json()) as GraphQLResponse<TResult>;
 
 	if (graphqlResponse.errors) {
+		console.dir(graphqlResponse.errors, { depth: 1000 });
 		throw TypeError(`GraphQL Error`, {
 			cause: graphqlResponse.errors,
 		});

@@ -1,10 +1,13 @@
-import { getProductsList } from "@/api/products";
+import { getProductsByCategory } from "@/api/products";
 import { ProductList } from "@/ui/organism/ProductsList";
 
-export const RelatedProducts = async () => {
-	const response = await getProductsList(4, 0);
+export const RelatedProducts = async ({ productCategory }: { productCategory: string }) => {
+	const response = await getProductsByCategory(4, 0, productCategory);
 
-	const products = response.edges.map((edge) => edge.node);
+	if (!response.category) {
+		return null;
+	}
+	const products = response.category.products.edges.map((edge) => edge.node);
 
 	return (
 		<article data-testid="related-products" className="my-8">

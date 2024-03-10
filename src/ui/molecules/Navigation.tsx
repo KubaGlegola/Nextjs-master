@@ -17,11 +17,6 @@ export const Navigation = async () => {
 						All
 					</ActiveLink>
 				</li>
-				{/* <li>
-					<ActiveLink href={"/categories"} exact={false}>
-						Categories
-					</ActiveLink>
-				</li> */}
 				{categories.edges.map((category) => {
 					return (
 						<li key={category.node.slug}>
