@@ -42,9 +42,7 @@ export const ProductDetail = async ({ productSlug }: { productSlug: string }) =>
 				)}
 				<div>
 					<h1 className="text-4xl font-bold">{product.name}</h1>
-					<h2 className="my-3 text-2xl font-semibold text-gray-700">
-						{formatMoney(product.price)}
-					</h2>
+					<h2 className="my-3 text-2xl font-semibold text-gray-700">{formatMoney(product.price)}</h2>
 					<p className="text-lg">{product.description}</p>
 					<form action={addProductToCartAction} className="mt-4 flex gap-4">
 						<ProductQuantity />

@@ -8,17 +8,13 @@ import {
 	ProductsGetListBySearchDocument,
 } from "@/gql/graphql";
 
-export const getProductsList = async (
-	first: number,
-	skip: number,
-	order?: SortDirection,
-	orderBy?: ProductSortBy,
-) => {
+export const getProductsList = async (first: number, skip: number, order?: SortDirection, orderBy?: ProductSortBy) => {
 	const graphqlResponse = await executeGraphql({
 		query: ProductsGetListDocument,
 		variables: { first: first, skip: skip, order: order, orderBy: orderBy },
 	});
 
+	return graphqlResponse.products;
 	return graphqlResponse.products;
 };
 
@@ -44,11 +40,7 @@ export const getProductsByCategory = async (first: number, skip: number, categor
 	return graphqlResponse;
 };
 
-export const getProductsBySerach = async (
-	search: string,
-	order?: SortDirection,
-	orderBy?: ProductSortBy,
-) => {
+export const getProductsBySerach = async (search: string, order?: SortDirection, orderBy?: ProductSortBy) => {
 	const graphqlResponse = await executeGraphql({
 		query: ProductsGetListBySearchDocument,
 		variables: { search: search, order: order, orderBy: orderBy },

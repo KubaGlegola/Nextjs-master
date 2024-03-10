@@ -15,6 +15,11 @@ export const ProductList = (props: { products: ProductsListItemFragment[] }) => 
 						<ProductListItem product={product} />
 					</li>
 				);
+				return (
+					<li key={product.id}>
+						<ProductListItem product={product} />
+					</li>
+				);
 			})}
 		</ul>
 	);
