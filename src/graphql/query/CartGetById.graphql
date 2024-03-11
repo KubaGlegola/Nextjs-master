@@ -1,0 +1,25 @@
+query CartGetById($id: ID!) {
+	cart(id: $id) {
+		id
+		items {
+			edges {
+				node {
+					product {
+						id
+						name
+						price
+						images {
+							edges {
+								node {
+									url
+									alt
+								}
+							}
+						}
+					}
+					quantity
+				}
+			}
+		}
+	}
+}

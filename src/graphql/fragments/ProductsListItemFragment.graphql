@@ -1,0 +1,21 @@
+fragment ProductsListItem on Product {
+	id
+	slug
+	name
+	rating
+	price
+	categories {
+		edges {
+			node {
+				name
+			}
+		}
+	}
+	images {
+		edges {
+			node {
+				url
+			}
+		}
+	}
+}

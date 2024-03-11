@@ -1,0 +1,9 @@
+query CollectionsGetAll {
+	collections {
+		edges {
+			node {
+				...Collection
+			}
+		}
+	}
+}

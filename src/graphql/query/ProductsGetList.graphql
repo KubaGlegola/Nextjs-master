@@ -1,0 +1,10 @@
+query ProductsGetList($first: Int, $skip: Int, $order: SortDirection, $orderBy: ProductSortBy) {
+	products(first: $first, skip: $skip, order: $order, orderBy: $orderBy) {
+		totalCount
+		edges {
+			node {
+				...ProductsListItem
+			}
+		}
+	}
+}

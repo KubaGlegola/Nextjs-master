@@ -1,0 +1,8 @@
+mutation CartComplete($cartId: ID!, $userEmail: String!) {
+	cartComplete(input: { id: $cartId, userEmail: $userEmail }) {
+		cart {
+			id
+			status
+		}
+	}
+}

@@ -1,0 +1,30 @@
+fragment Product on Product {
+	id
+	name
+	price
+	rating
+	description
+	images {
+		edges {
+			node {
+				url
+			}
+		}
+	}
+	categories {
+		edges {
+			node {
+				name
+				slug
+			}
+		}
+	}
+	reviews {
+		totalCount
+		edges {
+			node {
+				...Review
+			}
+		}
+	}
+}

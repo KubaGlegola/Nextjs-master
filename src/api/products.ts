@@ -1,41 +1,50 @@
 import { executeGraphql } from "@/api/graphqlApi";
 import {
-	GetProductByIdDocument,
+	ProductGetByIdDocument,
 	ProductsGetListDocument,
-	GetProductsByCategorySlugDocument,
-	CollectionsGetListBySlugDocument,
-	type ProductItemFragment,
-	GetProductsListBySearchDocument,
+	type SortDirection,
+	type ProductSortBy,
+	ProductsGetByCategorySlugDocument,
+	ProductsGetListBySearchDocument,
 } from "@/gql/graphql";
 
-export const getProductsList = async (take: number, skip: number) => {
-	const graphqlResponse = await executeGraphql(ProductsGetListDocument, { take: take, skip: skip });
+export const getProductsList = async (first: number, skip: number, order?: SortDirection, orderBy?: ProductSortBy) => {
+	const graphqlResponse = await executeGraphql({
+		query: ProductsGetListDocument,
+		variables: { first: first, skip: skip, order: order, orderBy: orderBy },
+	});
 
+	return graphqlResponse.products;
 	return graphqlResponse.products;
 };
 
-export const getProductById = async (_id: ProductItemFragment["id"]) => {
-	const graphqlResponse = await executeGraphql(GetProductByIdDocument, { id: _id });
+export const getProductById = async (slug: string) => {
+	const graphqlResponse = await executeGraphql({
+		query: ProductGetByIdDocument,
+		variables: { slug: slug },
+	});
 
 	return graphqlResponse.product;
 };
 
-export const getProductsByCategory = async (category: string) => {
-	const graphqlResponse = await executeGraphql(GetProductsByCategorySlugDocument, {
-		slug: category,
+export const getProductsByCategory = async (first: number, skip: number, category: string) => {
+	const graphqlResponse = await executeGraphql({
+		query: ProductsGetByCategorySlugDocument,
+		variables: {
+			first: first,
+			skip: skip,
+			slug: category,
+		},
 	});
 
-	return graphqlResponse.category?.products;
+	return graphqlResponse;
 };
 
-export const getCollectionsListBySlug = async (_slug: string) => {
-	const graphqlResponse = await executeGraphql(CollectionsGetListBySlugDocument, { slug: _slug });
+export const getProductsBySerach = async (search: string, order?: SortDirection, orderBy?: ProductSortBy) => {
+	const graphqlResponse = await executeGraphql({
+		query: ProductsGetListBySearchDocument,
+		variables: { search: search, order: order, orderBy: orderBy },
+	});
 
-	return graphqlResponse.collection;
-};
-
-export const getProductsBySerach = async (search: string) => {
-	const graphqlResponse = await executeGraphql(GetProductsListBySearchDocument, { search: search });
-
-	return graphqlResponse.products;
+	return graphqlResponse;
 };

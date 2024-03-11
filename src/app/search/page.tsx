@@ -10,9 +10,7 @@ type SearchPageProps = {
 export default async function SearchPage({ searchParams }: SearchPageProps) {
 	const response = await getProductsBySerach(searchParams.query);
 
-	if (!response.data) {
-		return <div>no products found</div>;
-	}
+	const products = response.products.edges.map((edge) => edge.node);
 
-	return <ProductList products={response.data} />;
+	return <ProductList products={products} />;
 }

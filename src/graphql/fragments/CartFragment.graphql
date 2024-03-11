@@ -1,0 +1,23 @@
+fragment Cart on Cart {
+	id
+	items {
+		edges {
+			node {
+				product {
+					id
+					name
+					price
+					images {
+						edges {
+							node {
+								url
+								alt
+							}
+						}
+					}
+				}
+				quantity
+			}
+		}
+	}
+}

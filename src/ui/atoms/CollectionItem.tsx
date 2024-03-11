@@ -1,9 +1,9 @@
 import Link from "next/link";
 import NextImage from "next/image";
-import { type CollectionItemFragment } from "@/gql/graphql";
+import { type CollectionFragment } from "@/gql/graphql";
 
 type CollectionItemProps = {
-	collectionItem: CollectionItemFragment;
+	collectionItem: CollectionFragment;
 };
 
 export const CollectionItem = ({ collectionItem }: CollectionItemProps) => {

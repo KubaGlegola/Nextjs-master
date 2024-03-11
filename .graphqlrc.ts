@@ -1,6 +1,5 @@
-
 import { loadEnvConfig } from "@next/env";
-import type { CodegenConfig } from '@graphql-codegen/cli';
+import type { CodegenConfig } from "@graphql-codegen/cli";
 
 loadEnvConfig(process.cwd());
 
@@ -8,7 +7,7 @@ const config: CodegenConfig = {
 	schema: process.env.GRAPHQL_URL,
 	overwrite: true,
 	ignoreNoDocuments: true,
-	documents: "src/graphql/*.graphql",
+	documents: "src/graphql/*/*.graphql",
 	generates: {
 		"src/gql/": {
 			preset: "client",
@@ -25,6 +24,5 @@ const config: CodegenConfig = {
 		},
 	},
 };
-  
 
 export default config;
