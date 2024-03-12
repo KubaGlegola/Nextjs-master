@@ -46,11 +46,7 @@ export default async function CartPage() {
 									{item.product.name}
 								</td>
 								<td>
-									<CartItemQuantity
-										cartId={cart.id}
-										itemId={item.product.id}
-										quantity={item.quantity}
-									/>
+									<CartItemQuantity cartId={cart.id} itemId={item.product.id} quantity={item.quantity} />
 								</td>
 								<td>{formatMoney(item.product.price)}</td>
 								<td>{formatMoney(item.product.price * item.quantity)}</td>

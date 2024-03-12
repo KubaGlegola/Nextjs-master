@@ -23,11 +23,9 @@ export const ProductDetail = async ({ productSlug }: { productSlug: string }) =>
 			if (!cart) {
 				throw new Error("Cart not found");
 			}
-
 			await addProductToCart(cart.id, product.id, +quantity);
+			revalidateTag("cart");
 		}
-
-		revalidateTag("cart");
 	}
 
 	return (

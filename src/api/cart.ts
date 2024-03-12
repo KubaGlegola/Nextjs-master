@@ -14,7 +14,7 @@ export const getOrCreateCart = async () => {
 	if (!cart.cartFindOrCreate) {
 		throw new Error("Failed to create cart");
 	}
-	cookies().set("cartId", cart.cartFindOrCreate.cart.id, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 2) });
+	cookies().set("cartId", cart.cartFindOrCreate.cart.id);
 	return cart.cartFindOrCreate.cart;
 };
 
@@ -35,7 +35,12 @@ export const getCartFromCookies = async () => {
 };
 
 export const createCart = () => {
-	return executeGraphql({ query: CartFindOrCreateDocument, variables: {} });
+	return executeGraphql({
+		query: CartFindOrCreateDocument,
+		variables: {},
+		cache: "no-cache",
+		next: { tags: ["cart"] },
+	});
 };
 
 export const addProductToCart = async (cartId: string, productId: string, quantity: number) => {

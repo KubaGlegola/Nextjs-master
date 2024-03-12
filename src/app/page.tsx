@@ -19,7 +19,7 @@ export default async function HomePage() {
 		<>
 			<section className="mb-8">
 				<PageTitle>New collections</PageTitle>
-				<ul className="flex justify-between gap-4">
+				<ul className="mt-4 flex flex-col justify-between gap-4 md:flex-row">
 					{collections.map((collectionItem) => (
 						<li key={collectionItem.slug}>
 							<CollectionItem collectionItem={collectionItem} />
