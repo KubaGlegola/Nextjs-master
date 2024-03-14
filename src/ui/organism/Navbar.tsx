@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { type Route } from "next";
 import { ShoppingCart } from "lucide-react";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Search } from "@/ui/atoms/Search";
 import { Navigation } from "@/ui/molecules/Navigation";
 import { getCartFromCookies } from "@/api/cart";
@@ -18,7 +19,7 @@ export const Navbar = async () => {
 				<Navigation />
 				<div className="flex items-center justify-center lg:justify-start">
 					<Search />
-					<div className="ml-auto h-full lg:ml-4">
+					<div className="ml-auto flex h-full items-center lg:ml-4">
 						<Link
 							className="flex h-full w-16 items-center justify-center border-b-2 border-transparent px-2 text-center text-sm font-medium text-slate-500  hover:text-slate-700"
 							href={"/cart" as Route}
@@ -29,6 +30,12 @@ export const Navbar = async () => {
 								<span className="sr-only">items in cart, view bag</span>
 							</div>
 						</Link>
+						<SignedIn>
+							<UserButton userProfileMode="navigation" />
+						</SignedIn>
+						<SignedOut>
+							<SignInButton />
+						</SignedOut>
 					</div>
 				</div>
 			</div>
