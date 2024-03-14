@@ -1,4 +1,5 @@
 "use client";
+
 import { useOptimistic } from "react";
 import { changeCartItemQuantity } from "@/utils/actions";
 
@@ -40,7 +41,7 @@ export const CartItemQuantity = ({
 				data-testid="increment"
 				formAction={async () => {
 					setOptimisticQuantity(optimisticQuantity + 1);
-					await changeCartItemQuantity(cartId, itemId, optimisticQuantity + 1);
+					console.log(await changeCartItemQuantity(cartId, itemId, optimisticQuantity + 1));
 				}}
 			>
 				+
