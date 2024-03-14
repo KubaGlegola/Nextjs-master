@@ -7,7 +7,7 @@ export const ProductQuantity = () => {
 	return (
 		<div className="flex gap-2">
 			<button
-				className="h-full w-8 rounded-md  bg-slate-200  disabled:cursor-not-allowed disabled:bg-red-200 "
+				className="h-full w-8 rounded-md  bg-slate-100  shadow-md disabled:cursor-not-allowed disabled:bg-slate-300 "
 				onClick={(e) => {
 					e.preventDefault();
 					setQuantity((prevQuantity) => prevQuantity - 1);
@@ -22,10 +22,10 @@ export const ProductQuantity = () => {
 				type="number"
 				value={quantity}
 				onChange={(e) => setQuantity(+e.target.value)}
-				className="max-w-16 rounded-md border bg-slate-100 text-center"
+				className="max-w-16 rounded-md border bg-slate-100 text-center shadow-md"
 			/>
 			<button
-				className="h-full w-8 rounded-md border bg-slate-200 text-black"
+				className="h-full w-8 rounded-md border bg-slate-100 text-black shadow-md"
 				onClick={(e) => {
 					e.preventDefault();
 					setQuantity((prevQuantity) => prevQuantity + 1);

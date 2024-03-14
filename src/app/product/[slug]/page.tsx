@@ -1,5 +1,6 @@
 import { type Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { ProductDetail } from "@/ui/organism/ProductDetail";
 import { RelatedProducts } from "@/ui/molecules/RelatedProducts";
 import { getProductById } from "@/api/products";
@@ -34,13 +35,20 @@ export default async function ProductPage({ params }: { params: { slug: string }
 	return (
 		<>
 			<ProductDetail productSlug={params.slug} />
-			{product.categories.edges[0] && <RelatedProducts productCategory={product.categories.edges[0]?.node.slug} />}
-			<ReviewsList
-				productId={product.id}
-				reviews={reviews}
-				totalReviewsCount={product.reviews.totalCount}
-				productRating={productRating}
-			/>
+
+			{product.categories.edges[0] && (
+				<Suspense>
+					<RelatedProducts productCategory={product.categories.edges[0]?.node.slug} />
+				</Suspense>
+			)}
+			<Suspense>
+				<ReviewsList
+					productId={product.id}
+					reviews={reviews}
+					totalReviewsCount={product.reviews.totalCount}
+					productRating={productRating}
+				/>
+			</Suspense>
 		</>
 	);
 }
