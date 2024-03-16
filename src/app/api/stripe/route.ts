@@ -27,13 +27,25 @@ export async function POST(req: NextRequest): Promise<Response> {
 
 	const event = stripe.webhooks.constructEvent(await req.text(), signature, webhookSecret) as Stripe.DiscriminatedEvent;
 
+	console.log(event.type);
+
 	switch (event.type) {
 		case "payment_intent.succeeded": {
 			const orderId = event.data.object.metadata.orderId;
+			const userEmail = event.data.object.metadata.userEmail;
+
+			console.log(userEmail);
+
 			if (!orderId) {
 				return new Response("No orderId", { status: 400 });
 			}
-			await cartComplete(orderId);
+
+			if (!userEmail) {
+				return new Response("No user email", { status: 400 });
+			}
+
+			await cartComplete(orderId, userEmail);
+
 			break;
 		}
 		case "payment_intent.payment_failed": {

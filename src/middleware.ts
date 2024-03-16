@@ -14,5 +14,6 @@ export default authMiddleware({
 		"/product/(.*)",
 		"/products",
 		"/products/(.*)",
+		"/api/stripe",
 	],
 });

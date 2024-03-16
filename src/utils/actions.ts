@@ -35,12 +35,12 @@ export const removeItemFromCart = (cartId: string, itemId: string) => {
 	});
 };
 
-export const cartComplete = async (cartId: string) => {
+export const cartComplete = async (cartId: string, email: string) => {
 	return executeGraphql({
 		query: CartCompleteDocument,
 		variables: {
 			cartId: cartId,
-			userEmail: "example@example.com",
+			userEmail: email,
 		},
 	});
 };

@@ -1,10 +1,23 @@
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
+import { currentUser } from "@clerk/nextjs";
 import { getCartFromCookies } from "@/api/cart";
 import { StripeForm } from "@/ui/molecules/StripeForm";
 
 export default async function PaymentPage() {
 	const cart = await getCartFromCookies();
+	const user = await currentUser();
+
+	if (!user) {
+		redirect("/sign-in");
+	}
+
+	const userEmail = user.emailAddresses.find((email) => email.id === user.primaryEmailAddressId)?.emailAddress;
+
+	if (!userEmail) {
+		throw new Error("User email not found");
+	}
+
 	if (!cart) {
 		redirect("/");
 	}
@@ -32,6 +45,7 @@ export default async function PaymentPage() {
 		},
 		metadata: {
 			orderId: cart.id,
+			userEmail: userEmail,
 		},
 	});
 
