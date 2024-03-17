@@ -1,0 +1,10 @@
+query OrdersGetByEmail($email: String!) {
+	orders(email: $email) {
+		edges {
+			node {
+				id
+				lines
+			}
+		}
+	}
+}

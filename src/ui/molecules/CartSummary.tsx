@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { type Route } from "next";
 import { formatMoney } from "@/utils/utils";
 
 export const CartSummary = ({ orderValue }: { orderValue: number }) => {
@@ -11,7 +12,7 @@ export const CartSummary = ({ orderValue }: { orderValue: number }) => {
 				<span className="font-semibold">{formatMoney(orderValue)}</span>
 			</div>
 			<Link
-				href="/payment"
+				href={"/payment" as Route}
 				className="mt-4 block w-full rounded-md border bg-slate-700 px-8 py-3 text-center text-white transition-colors duration-300 hover:bg-slate-800 disabled:bg-slate-300 disabled:text-black"
 			>
 				Check Out

@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 
+import { revalidateTag } from "next/cache";
 import { CartAddItemDocument, CartFindOrCreateDocument, CartGetByIdDocument } from "@/gql/graphql";
 import { executeGraphql } from "@/api/graphqlApi";
 
@@ -20,7 +21,6 @@ export const getOrCreateCart = async () => {
 
 export const getCartFromCookies = async () => {
 	const cartId = cookies().get("cartId")?.value;
-
 	if (cartId) {
 		const cart = await executeGraphql({
 			query: CartGetByIdDocument,
@@ -39,12 +39,12 @@ export const createCart = () => {
 		query: CartFindOrCreateDocument,
 		variables: {},
 		cache: "no-cache",
-		next: { tags: ["cart"] },
 	});
 };
 
 export const addProductToCart = async (cartId: string, productId: string, quantity: number) => {
-	await executeGraphql({
+
+	const respone = executeGraphql({
 		query: CartAddItemDocument,
 		variables: {
 			cartId,
@@ -52,4 +52,7 @@ export const addProductToCart = async (cartId: string, productId: string, quanti
 			quantity: quantity,
 		},
 	});
+	revalidateTag("cart");
+	return respone;
+
 };

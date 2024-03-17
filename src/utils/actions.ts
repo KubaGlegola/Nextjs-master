@@ -11,44 +11,43 @@ import {
 import { type ReviewType } from "@/utils/types";
 
 export const changeCartItemQuantity = (cartId: string, itemId: string, quantity: number) => {
-	revalidateTag("cart");
-	return executeGraphql({
+	const response = executeGraphql({
 		query: CartChangeItemQuantityDocument,
 		variables: {
 			cartId: cartId,
 			productId: itemId,
 			quantity: quantity,
 		},
-		next: {
-			tags: ["cart"],
-		},
 	});
+	revalidateTag("cart");
+	return response;
 };
 
 export const removeItemFromCart = (cartId: string, itemId: string) => {
-	return executeGraphql({
+	const response = executeGraphql({
 		query: CartRemoveItemDocument,
 		variables: {
 			cartId: cartId,
 			productId: itemId,
 		},
 	});
+	revalidateTag("cart");
+	return response;
 };
 
-export const cartComplete = async (cartId: string) => {
+export const cartComplete = async (cartId: string, email: string) => {
 	return executeGraphql({
 		query: CartCompleteDocument,
 		variables: {
 			cartId: cartId,
-			userEmail: "example@example.com",
+			userEmail: email,
 		},
 	});
 };
 
 export const addNewReview = async (productId: string, formData: FormData) => {
 	const newReviewData = Object.fromEntries(formData) as ReviewType;
-	revalidateTag("reviews");
-	return executeGraphql({
+	const response = executeGraphql({
 		query: ReviewCreateDocument,
 		variables: {
 			productId: productId,
@@ -59,4 +58,6 @@ export const addNewReview = async (productId: string, formData: FormData) => {
 			rating: Number(newReviewData.rating),
 		},
 	});
+	revalidateTag("reviews");
+	return response;
 };
