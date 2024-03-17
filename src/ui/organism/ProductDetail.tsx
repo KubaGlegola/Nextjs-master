@@ -1,4 +1,3 @@
-import { revalidateTag } from "next/cache";
 import { notFound } from "next/navigation";
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
 import { formatMoney } from "@/utils/utils";
@@ -24,7 +23,6 @@ export const ProductDetail = async ({ productSlug }: { productSlug: string }) =>
 				throw new Error("Cart not found");
 			}
 			await addProductToCart(cart.id, product.id, +quantity);
-			revalidateTag("cart");
 		}
 	}
 
