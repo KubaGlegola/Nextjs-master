@@ -8,7 +8,40 @@ export const SortSelect = () => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
-	const [selectValue, setSelectValue] = useState("Sort products");
+	const setCurrentSort = () => {
+		const sort = searchParams.get("sort");
+		const sortOrder = searchParams.get("sortOrder");
+
+		if (sort && sortOrder) {
+			switch (sort) {
+				case "rating":
+					if (sortOrder === "desc") {
+						return "ratingDesc";
+					} else {
+						return "ratingAsc";
+					}
+					break;
+				case "name":
+					if (sortOrder === "desc") {
+						return "nameDesc";
+					} else {
+						return "nameAsc";
+					}
+					break;
+				case "price":
+					if (sortOrder === "desc") {
+						return "priceDesc";
+					} else {
+						return "priceAsc";
+					}
+					break;
+				default:
+					return "";
+			}
+		}
+	};
+
+	const [selectValue, setSelectValue] = useState(setCurrentSort());
 
 	const selectChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		const params = new URLSearchParams(searchParams.toString());
@@ -38,6 +71,8 @@ export const SortSelect = () => {
 				params.set("sort", "price");
 				params.set("sortOrder", "asc");
 				break;
+			default:
+				selectValue;
 		}
 
 		const url = `${pathname}?${params.toString()}` as Route;

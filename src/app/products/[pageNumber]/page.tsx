@@ -29,13 +29,15 @@ export default async function ProductListPage({
 	const totalPages = Math.ceil(response.totalCount / productsPerPage);
 
 	return (
-		<section>
-			<div className="mb-4 flex items-center justify-between">
-				<PageTitle>All Products</PageTitle>
-				<SortSelect />
-			</div>
-			<ProductList products={products} />
-			<Pagination totalPages={totalPages} href="/products" searchParams={searchParams} />
-		</section>
+		<>
+			<section>
+				<div className="mb-4 flex items-center justify-between">
+					<PageTitle>All Products</PageTitle>
+					<SortSelect />
+				</div>
+				<ProductList products={products} />
+				<Pagination totalPages={totalPages} href="/products" searchParams={searchParams} />
+			</section>
+		</>
 	);
 }
