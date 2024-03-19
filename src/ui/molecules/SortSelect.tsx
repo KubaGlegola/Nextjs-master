@@ -12,29 +12,27 @@ export const SortSelect = () => {
 		const sort = searchParams.get("sort");
 		const sortOrder = searchParams.get("sortOrder");
 
-		if (sort && sortOrder) {
-			switch (sort) {
-				case "rating":
-					if (sortOrder === "desc") {
-						return "ratingDesc";
-					} else {
-						return "ratingAsc";
-					}
-				case "name":
-					if (sortOrder === "desc") {
-						return "nameDesc";
-					} else {
-						return "nameAsc";
-					}
-				case "price":
-					if (sortOrder === "desc") {
-						return "priceDesc";
-					} else {
-						return "priceAsc";
-					}
-				default:
-					return "";
-			}
+		switch (sort) {
+			case "rating":
+				if (sortOrder === "desc") {
+					return "ratingDesc";
+				} else {
+					return "ratingAsc";
+				}
+			case "name":
+				if (sortOrder === "desc") {
+					return "nameDesc";
+				} else {
+					return "nameAsc";
+				}
+			case "price":
+				if (sortOrder === "desc") {
+					return "priceDesc";
+				} else {
+					return "priceAsc";
+				}
+			default:
+				return "Sort products";
 		}
 	};
 
