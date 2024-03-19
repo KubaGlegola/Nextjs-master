@@ -20,21 +20,18 @@ export const SortSelect = () => {
 					} else {
 						return "ratingAsc";
 					}
-					break;
 				case "name":
 					if (sortOrder === "desc") {
 						return "nameDesc";
 					} else {
 						return "nameAsc";
 					}
-					break;
 				case "price":
 					if (sortOrder === "desc") {
 						return "priceDesc";
 					} else {
 						return "priceAsc";
 					}
-					break;
 				default:
 					return "";
 			}
